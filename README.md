@@ -5,8 +5,9 @@ JSX의 정의와 역할
 JSX란 : JavaScript + XML/HTML
 
 예시
+``` jsx
 const element = <h1>Hello, word!</h1>;
-
+```
 JSX의 역할
 
 
