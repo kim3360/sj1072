@@ -4,6 +4,8 @@
 https://www.figma.com/design/dMtzON8EQrdvDMINO2ZTiI/Untitled?node-id=3-2&node-type=frame&t=fYqCNKz5BQSkkucw-0
 
 1. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+
  -ㅁㅁ
 ## Available Scripts
 
