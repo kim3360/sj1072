@@ -8,20 +8,24 @@ JSX란 : JavaScript + XML/HTML
 ``` jsx
 const element = <h1>Hello, word!</h1>;
 ```
+
 JSX의 역할
 
-
 JSX를 사용한 코드
+``` jsx
 const element = (
     <h1 clssName="greeting"> Hello, world!</h1>
 )
+```
 
 JSX를 사용하지 않은 코드
+``` jsx
 const element = React.createElement(
     'h1',
     { className: 'greeting'},
     'Hello, world!'
 )
+```
 
 
 JSX의 장점 및 사용법
@@ -30,7 +34,7 @@ JSX의 장점 및 사용법
 간결함
 Injection Attacks 방어 
 
-
+``` jsx
 const name = '소플';
 const element = <h1>안녕, {name}</h1>;
 
@@ -38,6 +42,7 @@ React.DOM.render(
     element,
     document.getElementById('root')
 );
+```
 
 5강
 
