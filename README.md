@@ -130,7 +130,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
-<img src="./src/images/image7.png" alt="이미지 설명" width="500px" height="300px">
+<img src="./src/images/image7.png" alt="이미지 설명" width="800px" height="1000px">
 
 <!-- ![image](./src/images/image7.png) -->
 
