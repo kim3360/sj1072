@@ -130,7 +130,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
-![alt text](image.png)
+![image](image.png)
 
 
 
