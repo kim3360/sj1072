@@ -1,79 +1,111 @@
-# Getting Started with Create React App
+4강
+
+JSX의 정의와 역할
+
+JSX란 : JavaScript + XML/HTML
+
+예시
+const element = <h1>Hello, word!</h1>;
+
+JSX의 역할
 
 
-https://www.figma.com/design/dMtzON8EQrdvDMINO2ZTiI/Untitled?node-id=3-2&node-type=frame&t=fYqCNKz5BQSkkucw-0
+JSX를 사용한 코드
+const element = (
+    <h1 clssName="greeting"> Hello, world!</h1>
+)
 
-1. This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+JSX를 사용하지 않은 코드
+const element = React.createElement(
+    'h1',
+    { className: 'greeting'},
+    'Hello, world!'
+)
 
 
-   -ㅁㅁ
-## Available Scripts
+JSX의 장점 및 사용법
 
-In the project directory, you can run:
+버그를 발견하기 쉬움
+간결함
+Injection Attacks 방어 
 
-### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+const name = '소플';
+const element = <h1>안녕, {name}</h1>;
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+React.DOM.render(
+    element,
+    document.getElementById('root')
+);
 
-### `npm test`
+5강
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Elements의 정의와 생김새
 
-### `npm run build`
+Elements란 : 리액트 앱을 구성하는 가장 작은 블록들
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+React.createElement(
+    type,
+    [props],
+    [...children]
+)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Elements의 특징 및 렌더링하기
 
-### `npm run eject`
+im + mutable = immutable(불변성)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+6강
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Components와 Props의 정의
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+Props -> React component -> React element
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
 
-## Learn More
+Props의 특징 및 사용법
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+모든 리액트 컴포넌트는 props를 직접 바꿀 수 없고, 같은 Props에 대해서는 항상 같은 결과를 보여줄것 
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+Component 만들기 및 렌더링
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Function Component
 
-### Analyzing the Bundle Size
+function Welcome(props) {
+    return <h1>안녕, {props}</h1>;
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+Class Component
 
-### Making a Progressive Web App
+class Welcome extends React.Component{
+    render() {
+        return <h1>안녕, {this.props.name}</h1>;
+    }
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+HTML div 태그로 인식
 
-### Advanced Configuration
+const element = <div />;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Welcome이라는 리액트 Component로 인식
 
-### Deployment
+const element = <Welcome name="리액트" />;
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+function Welcome(props) {
+    return <h1>안녕, {props.name}</h1>;
+}
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+const element = <Welcome name="인제" />;
+ReactDOM.render(
+    element,
+    document.getElementById('root')
+)
 
-![image](https://github.com/user-attachments/assets/08a71b66-46a0-415c-b0b9-4adb2312b84a)
+#Component 합성과 추출
+-------------------------
+
+
+
 
 
