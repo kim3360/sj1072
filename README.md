@@ -130,7 +130,7 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
-![image](image.png)
+![image](./src/images/image7.png)
 
 
 
