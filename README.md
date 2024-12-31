@@ -1,6 +1,7 @@
 4강
 
-JSX의 정의와 역할
+# JSX의 정의와 역할
+------------------------
 
 JSX란 : JavaScript + XML/HTML
 
@@ -8,8 +9,6 @@ JSX란 : JavaScript + XML/HTML
 ``` jsx
 const element = <h1>Hello, word!</h1>;
 ```
-
-JSX의 역할
 
 JSX를 사용한 코드
 ``` jsx
@@ -28,7 +27,8 @@ const element = React.createElement(
 ```
 
 
-JSX의 장점 및 사용법
+# JSX의 장점 및 사용법
+---------------------
 
 버그를 발견하기 쉬움
 간결함
@@ -130,9 +130,73 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
-<img src="./src/images/image7.png" alt="이미지 설명" width="1200px" height="500px">
+<img src="./src/images/image7.png" alt="컴포넌트 합성" width="500px" height="1000px">
 
-<!-- ![image](./src/images/image7.png) -->
+
+
+``` jsx
+function Comment(props) {
+    return (
+        <div className="comment">
+         <div className="user-info">
+          <img className="avatar" src={props.author.avatarUrl} alt={props.author.name}/>
+           <div className="user-info-name">
+            {props.author.name}
+           </div>
+         </div>
+         
+         <div className="comment-text">
+          {props.text}
+         </div>
+
+         <div className="comment-date">
+          {formatDate(props.date)}
+         </div>
+        </div>
+    );
+}
+```
+
+``` jsx
+function Comment(props) {
+    return (
+        <div className="comment">
+         <div className="user-info">
+          <Avatar  user ={props.author} />
+           <div className="user-info-name">
+            {props.author.name}
+           </div>
+         </div>
+         
+         <div className="comment-text">
+          {props.text}
+         </div>
+
+         <div className="comment-date">
+          {formatDate(props.date)}
+         </div>
+        </div>
+    );
+}
+``` 
+
+``` jsx
+function Comment(props) {
+    return (
+        <div className="comment">
+          <UserInfo user ={props.author} />      
+         <div className="comment-text">
+          {props.text}
+         </div>
+         <div className="comment-date">
+          {formatDate(props.date)}
+         </div>
+        </div>
+    );
+}
+```
+<img src="./src/images/image8.png" alt="컴포넌트 추출" width="500px" height="1000px">
+
 
 
 
