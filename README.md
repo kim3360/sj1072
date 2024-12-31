@@ -1,7 +1,6 @@
-4강
+# 4강
 
-# JSX의 정의와 역할
-------------------------
+## JSX의 정의와 역할
 
 JSX란 : JavaScript + XML/HTML
 
@@ -28,7 +27,6 @@ const element = React.createElement(
 
 
 # JSX의 장점 및 사용법
----------------------
 
 버그를 발견하기 쉬움
 간결함
