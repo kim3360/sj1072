@@ -157,9 +157,6 @@ setInterval(() => {
 Props -> React component -> React element
 <img src="./src/images/image4.png" alt="props" width="1200px" height="500px">
 
-<img src="./src/images/image5.png" alt="props" width="1200px" height="500px">
-
-<img src="./src/images/image6.png" alt="props 사용 예제" width="1200px" height="500px">
 
 Props의 특징 및 사용법
 
