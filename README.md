@@ -28,10 +28,10 @@ const element = React.createElement(
 
 ## JSX의 장점 및 사용법
 
-가독성 향상
-버그를 발견하기 쉬움
-간결함
-Injection Attacks 방어 
++ 가독성 향상
++ 버그를 발견하기 쉬움
++ 간결함
++ Injection Attacks 방어 
 
 ``` jsx
 const name = '소플';
