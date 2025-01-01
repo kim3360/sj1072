@@ -52,8 +52,8 @@ Elements란 : 리액트 앱을 구성하는 가장 작은 블록들
 
 <img src="./src/images/image1.png" alt="DOM" width="1200px" height="500px">
 
-실제 브라우저의 DOM에 존재하는 엘리먼트 > DOM 엘리먼트
-리액트에 Virtual DOM 존재하는 엘리먼트는 > 리액트 엘리먼트
++ 실제 브라우저의 DOM에 존재하는 엘리먼트 > DOM 엘리먼트
++ 리액트에 Virtual DOM 존재하는 엘리먼트는 > 리액트 엘리먼트
 
 
 ``` jsx
