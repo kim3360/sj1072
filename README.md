@@ -245,6 +245,9 @@ ReactDOM.render(
 
 #Component 합성과 추출
 -------------------------
+
+Component 합성
+
 ``` jsx
 function Welcome(props) {
     return <h1>Hello, {props.name}</h1>;
@@ -265,9 +268,11 @@ ReactDOM.render(
     document.getElementById('root')
 );
 ```
+
 <img src="./src/images/image7.png" alt="컴포넌트 합성" width="1200px" height="500px">
 
 
+Component 추출
 
 ``` jsx
 function Comment(props) {
@@ -289,6 +294,15 @@ function Comment(props) {
          </div>
         </div>
     );
+}
+
+props = {
+    author: {
+        name: "소플",
+        avatarUrl: "https://...",
+    },
+    text: "댓글입니다.",
+    date: Date.now(),
 }
 ```
 
@@ -313,6 +327,15 @@ function Comment(props) {
         </div>
     );
 }
+
+function Avatar(props) {
+    return(
+        <img className="avatar"
+            src={props.user.avatarUrl}
+            alt={props.user.name}
+            />
+    );
+}
 ``` 
 
 ``` jsx
@@ -329,7 +352,19 @@ function Comment(props) {
         </div>
     );
 }
+
+function UserInfo(props) {
+    return(
+      <div className="user-info">
+        <Avatar user={props.user} />
+        <div className="user-info-name">
+            {props.user.name}
+        </div>
+       </div>
+    );
+}
 ```
+
 <img src="./src/images/image8.png" alt="컴포넌트 추출" width="1200px" height="500px">
 
 
