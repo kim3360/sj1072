@@ -157,20 +157,59 @@ setInterval(() => {
 Props -> React component -> React element
 <img src="./src/images/image4.png" alt="props" width="1200px" height="500px">
 
+<img src="./src/images/image5.png" alt="props" width="1200px" height="500px">
 
-Props의 특징 및 사용법
+<img src="./src/images/image6.png" alt="props 사용 예제" width="1200px" height="500px">
+
+## Props의 특징 및 사용법
 
 모든 리액트 컴포넌트는 props를 직접 바꿀 수 없고, 같은 Props에 대해서는 항상 같은 결과를 보여줄것 
 
+``` jsx
+function App(props) {
+    return(
+        <Layout
+            width={2560}
+            height={1440}
+            header={
+                <header title="소플의 블로그입니다." />
+            }
+            footer= {
+                <Footer />
+            }
+            />
+    );
+}
+```
 
-Component 만들기 및 렌더링
+``` jsx
+React.createElement(
+  Layout,
+  {
+    width: 2560,
+    height: 1440,
+    header: React.createElement(
+       header, 
+      { title: "소폴의 블로그입니다." }
+    ),
+    footer: React.createElement(
+        footer
+    ),
+  }
+);
+```
 
+## Component 만들기 및 렌더링
+
+``` jsx
 Function Component
 
 function Welcome(props) {
     return <h1>안녕, {props}</h1>;
 }
+```
 
+``` jsx
 Class Component
 
 class Welcome extends React.Component{
@@ -178,16 +217,21 @@ class Welcome extends React.Component{
         return <h1>안녕, {this.props.name}</h1>;
     }
 }
+```
 
 HTML div 태그로 인식
 
+``` jsx
 const element = <div />;
+```
 
 Welcome이라는 리액트 Component로 인식
 
+``` jsx
 const element = <Welcome name="리액트" />;
+```
 
-
+``` jsx
 function Welcome(props) {
     return <h1>안녕, {props.name}</h1>;
 }
@@ -197,6 +241,7 @@ ReactDOM.render(
     element,
     document.getElementById('root')
 )
+```
 
 #Component 합성과 추출
 -------------------------
