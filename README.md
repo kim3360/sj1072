@@ -1,371 +1,448 @@
-# 4강
+# 7강 State and Lifecycle
 
-## JSX의 정의와 역할
+## State와 Lifecycle의 정의
 
-JSX란 : JavaScript + XML/HTML
-
-예시
-``` jsx
-const element = <h1>Hello, word!</h1>;
-```
-
-JSX를 사용한 코드
-``` jsx
-const element = (
-    <h1 clssName="greeting"> Hello, world!</h1>
-)
-```
-
-JSX를 사용하지 않은 코드
-``` jsx
-const element = React.createElement(
-    'h1',
-    { className: 'greeting'},
-    'Hello, world!'
-)
-```
-
-
-## JSX의 장점 및 사용법
-
-+ 가독성 향상
-+ 버그를 발견하기 쉬움
-+ 간결함
-+ Injection Attacks 방어 
+state란?
++ 리액트 Componenet의 상태관리 
++ 렌더링이나 데이터 흐름에 사용되는 값만 state에 포함
++ state를 변경할때는 setState 사용
 
 ``` jsx
-const name = '소플';
-const element = <h1>안녕, {name}</h1>;
-
-React.DOM.render(
-    element,
-    document.getElementById('root')
-);
-```
-
-
-# 5강
-
-## Elements의 정의와 생김새
-
-Elements란 : 리액트 앱을 구성하는 가장 작은 블록들
-
-<img src="./src/images/image1.png" alt="DOM" width="1200px" height="500px">
-
-+ 실제 브라우저의 DOM에 존재하는 엘리먼트 > DOM 엘리먼트
-+ 리액트에 Virtual DOM 존재하는 엘리먼트는 > 리액트 엘리먼트
-
-
-``` jsx
-React.createElement(
-    type,  // 태그
-    [props],  // 속성
-    [...children]  // 자식 엘리먼트
-)
+// state를 직접 수정 (잘못된 사용법)
+this.state = {
+    name: 'Inje'
+};
 ```
 
 ``` jsx
-function Button(props) {
-    return(
-        <button className={`bg-${props.color}`}>
-          <b>
-            {props.children}
-          </b>
-        </button>  
-    )
-}
+// setState 함수를 통한 수정 (정상적인 사용법)
+this.setState({
+    name: 'Inje'
+});
+```
 
-function ConfirmDialog(props) {
-    return(
+Lifecycle
+
+<img src="./src/images/image1.png" alt="Lifecycle" width="1200px" height="500px">
+
++ Mounting(생성)
++ Updating(업데이트)
++ Unmounting(삭제)
+
+Component가 계속 존재하는 것이 아니라, 시간의 흐름에 따라 생성되고 업데이트 되다가 사라진다.
+
+# 8강 Hooks
+
+## Hooks의 개념과 useState, useEffect
+
+<img src="./src/images/image2.png" alt="컴포넌트 종류" width="1200px" height="500px">
+
+useState() : state를 사용하기 위한 Hook
+
+
+``` jsx
+const [변수명, set함수명] = useState(초기값);
+```
+
+``` jsx
+import React, {useState} from "react";
+
+function Counter(props) {
+    const [count, setCount] = useState(0);
+
+    retrun(
         <div>
-            <p>내용을 확인하셨으면 확인 버튼을 눌러주세요. </p>
-            <Button color='green'>확인</Button>
-        </div>
-    )    
-}
-```
-
-``` jsx
-Button 함수 
-{
-    type: 'button',
-    props: {
-        className: 'bg-${props.color}',
-        children: {
-            type: 'b',
-            props: {
-                children: 'props.children'
-            }
-        }
-    }
-}
-
-ConfirmDialog 함수
-{
-    type: 'div',
-    props: {
-        children: [
-            {
-                type: 'p',
-                props: {
-                    children: '내용을 확인하셨으면 확인 버튼을 눌러주세요.'
-                }
-            },
-            {
-                type: Button,
-                props: {
-                    color: 'green',
-                    children: '확인'
-                }
-            }
-        ]
-    }
-}
-```
-
-## Elements의 특징 및 렌더링하기
-
-im + mutable = immutable(불변성)
-
-<img src="./src/images/image2.png" alt="Elements의 특징징" width="1200px" height="500px">
-
-[컴포넌트 = 붕어빵 틀, 엘리먼트 = 생성된 붕어빵]
-
-<img src="./src/images/image3.png" alt="Elements 교체 및 리랜더링" width="1200px" height="500px">
- 
-``` jsx
-function tick() {
-    const element = (
-        <div>
-            <h1>안녕, 리액트!</h1>
-            <h2>현재 시간: {new.Date().toLocaleTimeString()}</h2>
-        </div>       
-    );
-
-    ReactDOM.render(element, document.getElementById('root'));
-}
-
-setInterval(() => {
-    tick();
-}, 1000);
-```
-
-# 6강
-
-## Components와 Props의 정의
-
-Props -> React component -> React element
-<img src="./src/images/image4.png" alt="props" width="1200px" height="500px">
-
-<img src="./src/images/image5.png" alt="props" width="1200px" height="500px">
-
-<img src="./src/images/image6.png" alt="props 사용 예제" width="1200px" height="500px">
-
-## Props의 특징 및 사용법
-
-모든 리액트 컴포넌트는 props를 직접 바꿀 수 없고, 같은 Props에 대해서는 항상 같은 결과를 보여줄것 
-
-``` jsx
-function App(props) {
-    return(
-        <Layout
-            width={2560}
-            height={1440}
-            header={
-                <header title="소플의 블로그입니다." />
-            }
-            footer= {
-                <Footer />
-            }
-            />
-    );
-}
-```
-
-``` jsx
-React.createElement(
-  Layout,
-  {
-    width: 2560,
-    height: 1440,
-    header: React.createElement(
-       header, 
-      { title: "소폴의 블로그입니다." }
-    ),
-    footer: React.createElement(
-        footer
-    ),
-  }
-);
-```
-
-## Component 만들기 및 렌더링
-
-``` jsx
-Function Component
-
-function Welcome(props) {
-    return <h1>안녕, {props}</h1>;
-}
-```
-
-``` jsx
-Class Component
-
-class Welcome extends React.Component{
-    render() {
-        return <h1>안녕, {this.props.name}</h1>;
-    }
-}
-```
-
-HTML div 태그로 인식
-
-``` jsx
-const element = <div />;
-```
-
-Welcome이라는 리액트 Component로 인식
-
-``` jsx
-const element = <Welcome name="리액트" />;
-```
-
-``` jsx
-function Welcome(props) {
-    return <h1>안녕, {props.name}</h1>;
-}
-
-const element = <Welcome name="인제" />;
-ReactDOM.render(
-    element,
-    document.getElementById('root')
-)
-```
-
-#Component 합성과 추출
--------------------------
-
-Component 합성
-
-``` jsx
-function Welcome(props) {
-    return <h1>Hello, {props.name}</h1>;
-}
-
-function App(props) {
-    return(
-        <div>
-         <Welcome name="Mike" />
-         <Welcome name="Steve" />
-         <Welcome name="Jane" />
-        </div>
-    )
-}
-
-ReactDOM.render(
-    <App/>,
-    document.getElementById('root')
-);
-```
-
-<img src="./src/images/image7.png" alt="컴포넌트 합성" width="1200px" height="500px">
-
-
-Component 추출
-
-``` jsx
-function Comment(props) {
-    return (
-        <div className="comment">
-         <div className="user-info">
-          <img className="avatar" src={props.author.avatarUrl} alt={props.author.name}/>
-           <div className="user-info-name">
-            {props.author.name}
-           </div>
-         </div>
-         
-         <div className="comment-text">
-          {props.text}
-         </div>
-
-         <div className="comment-date">
-          {formatDate(props.date)}
-         </div>
+            <p>총 {count}번 클릭했습니다.</p>
+            <button onClick={()=> setCount(count + 1)}> 클릭 </button>
         </div>
     );
 }
+```
 
-props = {
-    author: {
-        name: "소플",
-        avatarUrl: "https://...",
+useEffiect() : Side effect를 수행하기 위한 Hook
+``` jsx
+useEffect(이펙트 함수, 의존성 배열); 
+```
+
++ 이펙트가 의존하고 있는 배열 안에 있는 변수가 하나라도 값이 변경되면 이펙트 함수 실행
++ 처음 컴포넌트가 렌더링된 이후와 업데이트로 인한 재렌더링 이후 실행
+
+``` jsx
+useEffiect(이펙트 함수, []);
+```
+
++ 이펙트 함수가 mount와 unmount시에 한 번씩만 실행
+
+``` jsx
+import React, {useState, useEffect} from "react";
+
+function Counter(props){
+    const [count, setCount] = useState(0);
+
+    // componenetDidMount, componenetDidUppdate와 비슷하게 작동한다.
+    useEeffect(()=> {
+        //브라우저 API를 사용해서 document의 title을 업데이트한다.
+        document.title = `You clicked ${count} times`;
+    });
+
+    return(
+        <div>
+            <p>총 {count}번 클릭했습니다.</p>
+            <button onclick={() => setCount(count + 1)}>클릭</button>
+        </div>
+    );
+}
+```
+
+``` jsx
+function UserStatusWithCounter(props){
+    const [count, setCount] = useState(0);
+    useEeffect(() => {
+        document.title = `총 ${count}번 클릭했습니다.`;
+    });
+
+    const [isOnline, setIsOnline] = useState(null);
+    useEeffect(() => {
+        ServerAPI.subscribeUserStatus(props.user.id, handleStatusChange);
+        return() => {
+            ServerAPI.unsubscribeUserStatus(props.user.id, handleStatusChange);
+        };
+    });
+
+    function handleStatusChange(status){
+        setIsOnline(status.isOnline);
+    }
+}
+```
+## useMemo, useCallback, useRef
+
+useMemo란? : Memoized value를 리턴하는 Hook
++ 연산량이 많이 드는 함수의 호출 결과를 저장해 두었다가 같은 입력 값으로 함수를 호출
+
+``` jsx 
+const memoizedValue = useMemo(
+    () => {
+        // 연산량이 높은 작업을 수행하여 결과를 반환
+        return computeExpensiveValue(의존성 변수, 의존성 변수2);
     },
-    text: "댓글입니다.",
-    date: Date.now(),
-}
+    [의존성 변수1, 의존성 변수2]
+);
+```
+
+useCallback란? : useMemo() Hook과 유사하지만 값이 아닌 함수를 반환
+
+``` jsx
+const memoizedCallback = useCallback(
+    () => {
+        doSometing(의존성 변수1, 의존성 변수2);
+    },
+    [의존성 변수1, 의존성 변수2]
+);
 ```
 
 ``` jsx
-function Comment(props) {
-    return (
-        <div className="comment">
-         <div className="user-info">
-          <Avatar  user ={props.author} />
-           <div className="user-info-name">
-            {props.author.name}
-           </div>
-         </div>
-         
-         <div className="comment-text">
-          {props.text}
-         </div>
+import {useState, useCallback} from 'react';
 
-         <div className="comment-date">
-          {formatDate(props.date)}
-         </div>
+function ParentComponenet(props){
+    const [count, setCount] = useState(0);
+
+    //컴포넌트가 마운트 될 때만 함수가 정의됨
+    const handleClick = useCallback((event) => {
+        //클릭 이벤트 처리
+    }, []);
+
+    return(
+        <div>
+            <button onClick={()=> {setCount(count + 1);}}>{count}</button>
+            <ChildComponenet handleClick={handleClick}/>
         </div>
     );
 }
-
-function Avatar(props) {
-    return(
-        <img className="avatar"
-            src={props.user.avatarUrl}
-            alt={props.user.name}
-            />
-    );
-}
-``` 
+```
+useRef란 : Reference를 사용하기 위한 훅
++ 특정 컴포넌트에 접근할 수 있는 객체
 
 ``` jsx
-function Comment(props) {
-    return (
-        <div className="comment">
-          <UserInfo user ={props.author} />      
-         <div className="comment-text">
-          {props.text}
-         </div>
-         <div className="comment-date">
-          {formatDate(props.date)}
-         </div>
-        </div>
-    );
+const refContainer = useRef(초기값);
+```
+
+## Hook의 규칙과 Custom Hook 만들기
+
+Hook의 규칙
+
++ Hook은 최상위 레벨에서마 호출
++ 반복문이나 조건문 안에서 Hook 호출은 안됌
++ 컴포넌트가 렌더링될 때마다 매번 같은 순서로 호출
++ 컴포넌트내에서만 Hook을 호출
+
+Custom Hook 만들기
+
+```jsx
+import React, { useState, useEffect } from "react";
+
+function UserStatus(props) {
+    const [isOnline, setIsOnline] = useState(null);
+
+    useEffect(() => {
+        function handleStatusChange(status) {
+            setIsOnline(status.isOnline);
+        }
+
+        ServerAPI.subscribeUserStatus(props.user.id, handleStatusChange);
+        return () => {
+            ServerAPI.unsubscribeUserStatus(props.user.id, handleStatusChange);
+        };
+    });
+
+    if (isOnline === null) {
+        return '대기중';
+    }
+    return isOnline ? '온라인' : '오프라인';
+}
+```
+
+Custom Hook 추출하기
+
+``` jsx
+import { useState, useEffect } from "react";
+
+function useUserStatus(userId) {
+    const [isOnline, setIsOnline] = useState(null);
+
+    useEffect(() => {
+        function handleStatusChange(status) {
+            setIsOnline(status.isOnline);
+        }
+
+        ServerAPI.subscribeUserStatus(userId, handleStatusChange);
+        return () => {
+            ServerAPI.unsubscribeUserStatus(userId, handleStatusChange);
+        };
+    });
+
+    return isOnline;
 }
 
-function UserInfo(props) {
-    return(
-      <div className="user-info">
-        <Avatar user={props.user} />
-        <div className="user-info-name">
-            {props.user.name}
-        </div>
-       </div>
+```
+
+Custom Hook 사용하기
+
+``` jsx
+function UserStatus(props) {
+	const isOnline = useUserStatus(props.user.id);
+
+	if (isOnline === null) {
+		return "대기중...";
+	}
+	return isOnline ? "온라인" : "오프라인";
+}
+
+function UserListItem(props) {
+	const isOnline = useUserStatus(props.user.id);
+
+	return (
+        <li style={{color: isOnline ? 'green' : 'black'}}>{props.user.name}</li>
     );
 }
 ```
 
-<img src="./src/images/image8.png" alt="컴포넌트 추출" width="1200px" height="500px">
+# 8강 Handling Events
+
+##Event의 정의 및 Event 다루기
+
+DOM의 Event
+``` jsx
+// DOM에서 이벤트를 처리
+<button onclick="activate()"> Activate </button>
+```
+
+리액트의 Event
+``` jsx
+// 리액트에서 이벤트 처리리
+<button onClick={activate}> Activate </button>
+```
+
+``` jsx 
+function Toggle(props) {
+    const [isToggleOn, setIsToggleOn] = useState(true);
+
+    // 방법 1. 함수 안에 함수로 정의
+    function handleClick() {
+        setIsToggleOn((isToggleOn) => !isToggleOn);
+    }
+
+    // 방법 2. arrow function을 사용하여 정의
+    const handleClick =() => {
+        setIsToggleOn((isToggleOn) => !isToggleOn);
+    }
+
+    return (
+        <button onClick={handleClick}>{isToggleOn ? "켜짐" : "꺼짐"} </button>
+    );
+}
+```
+
+Arguments란? : Event Handler에 전달할 데이터
+
+``` jsx
+function MyButton(props) {
+    const handleDelete = (id, event) => {
+        console.log(id, event.target);
+    };
+
+    return (
+        <button onClick={(event) => handleDelete(1, event)}> 삭제하기 </button>
+    );
+}
+```
+
+# 9강 Conditional Rendering
+
+## Conditional Rendering의 정의와 Inline Conditions
+
+Conditional Rendering란? : 어떠한 조건에 따라서 렌더링이 달라지는 것
+
+``` jsx 
+function UserGreeting(props) {
+    return <h1>다시 오셨군요!</h1>;
+}
+
+function GuestGreeting(porps) {
+    return <h1>회원가입을 해주세요. </h1>;
+}
+
+function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+
+    if(isLoggedIn) {
+        return <UserGreeting />;
+    }
+    return <GuestGreeting />;
+}
+```
+
+Element Variables란? : 리액트의 엘리먼트를 변수처럼 다루는 방법
+
+```jsx 
+function LoginButton(props) {
+	return <button onClick={props.onClick}></button>;
+}
+function LogoutButton(props) {
+	return <button onClick={props.onClick}></button>;
+}
+
+function LoginControl(props) {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	const handleLoginClick = () => {
+		setIsLoggedIn(true);
+	};
+
+	const handleLogoutClick = () => {
+		setIsLoggedIn(false);
+	};
+
+	let button;
+	if (isLoggedIn) {
+        // button이라는 변수에 컴포넌트를 대입
+		button = <LogoutButton onClick={handleLogoutClcik} />;
+	} else {
+		button = <LoginButton onClick={handleLoginClcik} />;
+	}
+
+	return (
+		<div>
+			<Greeting isLoggedIn={isLoggedIn} />
+			{buttton}
+		</div>
+	);
+}
+```
+
+Inline Conditions란? : 조건문을 코드 안에 집어넣는 것
++ true && expression -> expression
++ false && expression -> false
+
+
+Inline if
+``` jsx
+function Mailbox(props) {
+    const unreadMessages = props.unreadMessages;
+
+    return (
+        <div>
+            <h1>안녕하세요!</h1>
+            {unreadMessages.length > 0 &&
+                <h2>
+                    현재 {unreadMessages.length}개의 읽지 않은 메시지가 있습니다.
+                </h2>
+            }
+        </div>
+    );
+}
+```
+
+Inline if-Else
++ ? 연산자를 사용
++ condition ? true : false
+
+```jsx
+function LoginControl(props) {
+	const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+	const handleLoginClick = () => {
+		setIsLoggedIn(true);
+	};
+
+	const handleLogoutClick = () => {
+		setIsLoggedIn(false);
+	};
+
+	return (
+		<div>
+			<Greeting isLoggedIn={isLoggedIn} />
+			{isLoggedIn ? <LogoutButton onClick={handleLogoutClick} /> : <LoginButton onClick={handleLoginClcik} />}
+		</div>
+	);
+}
+```
+
+컴포넌트 렌더링을 안할때
+``` jsx
+function WarningBanner(props) {
+    if (!props.warning) {
+        return null;
+    }
+    return (
+        <div>경고경고경고</div>
+    );
+}
+
+function MainPage(props) {
+    const [showWarning, setShowWarning] = useState(false);
+
+    const handleToggleClick = () => {
+        setShowWarning(prevShowWarning => !prevShowWarning);
+    }
+
+    return (
+        <div>
+            <WarningBanner warning={showWarning}/>
+            <button onClick={handleToggleClick}>{showWarning ? "감추기" ; "보이기" }</button>
+        </div>
+    )
+}
+```
+
+
+
+
+
+
+
+
+
+
 
 
 
